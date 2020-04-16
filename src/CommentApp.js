@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CommentInput from './CommentInput'
 import CommentList from './CommentList'
+import wrapWithLoadData from './wrapWithLoadData';
 
 class CommentApp extends Component {
     constructor() {
@@ -14,24 +15,24 @@ class CommentApp extends Component {
         this._loadComments()
     }
 
-    _loadComments() {
-        let comments = localStorage.getItem('comments');
-        if (comments) {
-            comments = JSON.parse(comments)
-            this.setState({ comments })
-        }
+    // _loadComments() {
+    //     let comments = localStorage.getItem('comments');
+    //     if (comments) {
+    //         comments = JSON.parse(comments)
+    //         this.setState({ comments })
+    //     }
 
-    }
+    // }
 
-    _saveComments(comments) {
-        localStorage.setItem('comments', JSON.stringify(comments));
-    }
+    // _saveComments(comments) {
+    //     localStorage.setItem('comments', JSON.stringify(comments));
+    // }
 
     handleDeleteComment = (index) => {
         const comments = this.state.comments
         comments.splice(index, 1);
         this.setState({ comments });
-        this._saveComments(comments);
+        this.props.saveData(comments);
     }
 
     handleSubmitComment = (comment) => {
@@ -40,7 +41,7 @@ class CommentApp extends Component {
         this.setState({
             comments: this.state.comments
         })
-        this._saveComments(comments);
+        this.props.saveData(comments);
     }
 
     render() {
@@ -54,4 +55,6 @@ class CommentApp extends Component {
     }
 }
 
+
+CommentApp = wrapWithLoadData(CommentApp, 'comments')
 export default CommentApp
