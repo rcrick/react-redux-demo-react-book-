@@ -1,3 +1,4 @@
+```
 src
 ├── components
 │   ├── Comment.js
@@ -11,3 +12,4 @@ src
 │     └── comments.js
 ├── index.css
 └── index.js
+```
