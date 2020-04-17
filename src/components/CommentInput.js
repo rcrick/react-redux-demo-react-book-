@@ -3,35 +3,38 @@ import PropTypes from 'prop-types';
 
 class ComponentInput extends Component {
     static propTypes = {
-        onSubmit: PropTypes.func
+        username: PropTypes.any,
+        onSubmit: PropTypes.func,
+        onUserNameInputBlur: PropTypes.func
     }
 
-    constructor() {
-        super()
+    static defaultProps = {
+        username: ''
+    }
+
+    constructor(props) {
+        super(props)
         this.state = {
-            username: '',
+            username: props.username,
             content: ''
         }
     }
 
-    componentWillMount() {
-        this._loadUsername();
-    }
+    // componentWillMount() {
+    //     this._loadUsername();
+    // }
 
     componentDidMount() {
         this.textarea.focus();
     }
 
-    _saveUsername(username) {
-        localStorage.setItem('username', username)
-    }
 
-    _loadUsername() {
-        const username = localStorage.getItem('username');
-        if (username) {
-            this.setState({ username })
+    handleUsernameBlur = (e) => {
+        if(this.props.onUserNameInputBlur) {
+            this.props.onUserNameInputBlur(e.target.value)
         }
     }
+
 
     handleUsernameInput = (e) => {
         this.setState({
@@ -45,6 +48,20 @@ class ComponentInput extends Component {
         })
     }
 
+    // _saveUsername(username) {
+    //     localStorage.setItem('username', username)
+    // }
+
+    // _loadUsername() {
+    //     const username = localStorage.getItem('username');
+    //     if (username) {
+    //         this.setState({ username })
+    //     }
+    // }
+
+
+
+
     handleSubmit = () => {
         if (this.props.onSubmit) {
             this.props.onSubmit({
@@ -56,9 +73,6 @@ class ComponentInput extends Component {
         this.setState({ content: '' })
     }
 
-    handleUsernameBlur = (e) => {
-        this._saveUsername(e.target.value);
-    }
 
     render() {
         return (

@@ -11,14 +11,6 @@ class ComponentList extends Component {
         comments: []
     }
 
-    componentWillMount() {
-        console.log('componentWillMount')
-    }
-
-    componentDidMount() {
-        console.log('componentDidMount')
-    }
-
     handleDeleteComment = (index) => {
         if (this.props.onDeleteComment) {
             this.props.onDeleteComment(index)
@@ -27,7 +19,6 @@ class ComponentList extends Component {
 
 
     render() {
-        console.log('render')
         return (
             <div>
                 {this.props.comments.map(

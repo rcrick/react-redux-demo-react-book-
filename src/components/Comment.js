@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Comment extends Component {
     static propTypes = {
-        comment: PropTypes.object.isRequired,
+        comment: PropTypes.object,
         onDeleteComment: PropTypes.func,
         index: PropTypes.number
     }
